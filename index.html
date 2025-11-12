@@ -88,6 +88,8 @@
             flex-direction: column;
             cursor: pointer;
             gap: 0.4rem;
+            z-index: 1001;
+            position: relative;
         }
 
         .menu-toggle span {
@@ -755,6 +757,7 @@
                 box-shadow: 0 10px 27px rgba(0,0,0,0.3);
                 padding: 2rem 0;
                 gap: 0;
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -1048,7 +1051,7 @@
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
-                <a href="/cdn-cgi/l/email-protection#a3c0cccdd7c2c0d7e3c1cad0d7d1ccd7c4ccd6d1cec2cdc78dc5d1"><span class="__cf_email__" data-cfemail="4f2c20213b2e2c3b0f2d263c3b3d203b28203a3d222e212b61293d">[email&#160;protected]</span></a>
+                <a href="mailto:contact@bistrotgourmand.fr">contact@bistrotgourmand.fr</a>
             </div>
         </div>
         <p>&copy; 2025 Le Bistrot Gourmand. Tous droits réservés.</p>
@@ -1060,7 +1063,7 @@
         </svg>
     </a>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
 
