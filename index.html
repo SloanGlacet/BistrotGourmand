@@ -14,10 +14,16 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Lato', sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         h1, h2, h3 {
@@ -41,7 +47,7 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
         .logo {
@@ -343,6 +349,13 @@
 
         .contact-item-text p {
             color: #666;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .contact-item-text {
+            flex: 1;
+            min-width: 0;
         }
 
         .map-button {
@@ -569,6 +582,8 @@
         .footer-item a {
             color: white;
             text-decoration: none;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .reservation-button {
@@ -602,12 +617,17 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
 
             .hero {
-                padding: 140px 1.5rem 80px;
+                padding: 140px 1rem 80px;
             }
 
             .hero p {
@@ -615,19 +635,22 @@
             }
 
             .container {
-                padding: 3rem 1.5rem;
+                padding: 3rem 1rem;
+                max-width: 100%;
             }
 
             .section-title {
                 font-size: 2.2rem;
+                padding: 0 0.5rem;
             }
 
             .section-subtitle {
                 font-size: 1rem;
+                padding: 0 0.5rem;
             }
 
             .menu-category {
-                padding: 1.5rem;
+                padding: 1.5rem 1rem;
             }
 
             .menu-category h3 {
@@ -677,15 +700,31 @@
             }
 
             .horaire-card {
-                padding: 1.5rem;
+                padding: 1.5rem 1rem;
             }
 
             .contact-item {
-                padding: 1.2rem;
+                padding: 1rem;
+                margin: 0;
+            }
+
+            .contact-item-text {
+                width: 100%;
+                overflow-wrap: break-word;
+            }
+
+            .contact-item-text p {
+                word-break: break-word;
+            }
+
+            .map-button {
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+                white-space: nowrap;
             }
 
             .contact-form {
-                padding: 1.5rem;
+                padding: 1rem;
             }
 
             .reservation-button {
@@ -730,11 +769,18 @@
             .footer-contact {
                 flex-direction: column;
                 gap: 1rem;
+                padding: 0 1rem;
             }
 
             .footer-item {
                 width: 100%;
                 justify-content: center;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .footer-item a {
+                word-break: break-all;
             }
 
             .btn {
@@ -929,7 +975,7 @@
                         </svg>
                         <div class="contact-item-text">
                             <h3>Email</h3>
-                            <p>contact@bistrotgourmand.fr</p>
+                            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d3e3233293c3e291d3f342e292f32293a32282f303c3339733b2f">[email&#160;protected]</a></p>
                         </div>
                     </div>
                 </div>
@@ -1002,7 +1048,7 @@
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
-                <a href="mailto:contact@bistrotgourmand.fr">contact@bistrotgourmand.fr</a>
+                <a href="/cdn-cgi/l/email-protection#a3c0cccdd7c2c0d7e3c1cad0d7d1ccd7c4ccd6d1cec2cdc78dc5d1"><span class="__cf_email__" data-cfemail="4f2c20213b2e2c3b0f2d263c3b3d203b28203a3d222e212b61293d">[email&#160;protected]</span></a>
             </div>
         </div>
         <p>&copy; 2025 Le Bistrot Gourmand. Tous droits réservés.</p>
@@ -1014,7 +1060,7 @@
         </svg>
     </a>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
 
@@ -1193,16 +1239,3 @@
             }
 
             alert('Merci pour votre réservation ! Nous vous contacterons sous 24h pour confirmer.');
-            this.reset();
-            selectedDate = null;
-            selectedTime = null;
-            document.getElementById('time-slots-container').style.display = 'none';
-            document.getElementById('reservation-summary').style.display = 'none';
-            renderCalendar();
-        });
-
-        // Initialiser le calendrier
-        renderCalendar();
-    </script>
-</body>
-</html>
