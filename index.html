@@ -345,6 +345,25 @@
             color: #666;
         }
 
+        .map-button {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: #8B0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .map-button:hover {
+            background: #DC143C;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+        }
+
         .contact-form {
             background: white;
             padding: 2rem;
@@ -889,7 +908,10 @@
                         </svg>
                         <div class="contact-item-text">
                             <h3>Adresse</h3>
-                            <p>45 Rue de la Gastronomie<br>75001 Paris</p>
+                            <p>Avenue des Champs-Élysées<br>75008 Paris</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Avenue+des+Champs-Élysées,+75008+Paris" target="_blank" class="map-button">
+                                📍 Voir sur Google Maps
+                            </a>
                         </div>
                     </div>
                     <div class="contact-item">
