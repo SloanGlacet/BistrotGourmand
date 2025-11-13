@@ -7,6 +7,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Script pour le menu hamburger - Chargé en premier -->
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        var toggle = document.getElementById('mobile-menu');
+        var nav = document.getElementById('nav-links');
+        
+        if (toggle && nav) {
+            // Support pour tactile et clic
+            toggle.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            }, {passive: false});
+            
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+            
+            // Fermer au clic sur un lien
+            var links = nav.querySelectorAll('a');
+            links.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    toggle.classList.remove('active');
+                    nav.classList.remove('active');
+                });
+            });
+        }
+    });
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -389,140 +422,6 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        .calendar-container {
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: #8B0000;
-            color: white;
-            border-radius: 10px;
-        }
-
-        .calendar-header button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: transform 0.2s;
-        }
-
-        .calendar-header button:hover {
-            transform: scale(1.2);
-        }
-
-        .calendar-month {
-            font-size: 1.2rem;
-            font-weight: bold;
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-day-name {
-            text-align: center;
-            font-weight: bold;
-            color: #8B0000;
-            padding: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-
-        .calendar-day:hover:not(.disabled):not(.past) {
-            background: #f8f8f8;
-            border-color: #8B0000;
-        }
-
-        .calendar-day.selected {
-            background: #8B0000;
-            color: white;
-            border-color: #8B0000;
-        }
-
-        .calendar-day.past,
-        .calendar-day.disabled {
-            color: #ccc;
-            cursor: not-allowed;
-            background: #f9f9f9;
-        }
-
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .time-slot {
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-
-        .time-slot:hover:not(.unavailable) {
-            border-color: #8B0000;
-            background: #f8f8f8;
-        }
-
-        .time-slot.selected {
-            background: #8B0000;
-            color: white;
-            border-color: #8B0000;
-        }
-
-        .time-slot.unavailable {
-            background: #f5f5f5;
-            color: #999;
-            cursor: not-allowed;
-            text-decoration: line-through;
-        }
-
-        .reservation-summary {
-            background: #FFF8F0;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid #8B0000;
-        }
-
-        .reservation-summary h4 {
-            color: #8B0000;
-            margin-bottom: 0.5rem;
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .reservation-summary p {
-            margin: 0.3rem 0;
-            color: #666;
-        }
-
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -802,7 +701,7 @@
     <header>
         <nav>
             <div class="logo">Le Bistrot Gourmand</div>
-            <div class="menu-toggle" id="mobile-menu" onclick="toggleMobileMenu()">
+            <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -983,33 +882,11 @@
                         </svg>
                         <div class="contact-item-text">
                             <h3>Email</h3>
-                            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d3e3233293c3e291d3f342e292f32293a32282f303c3339733b2f">[email&#160;protected]</a></p>
+                            <p>contact@bistrotgourmand.fr</p>
                         </div>
                     </div>
                 </div>
                 <form class="contact-form" id="reservation-form">
-                    <div class="calendar-container">
-                        <div class="calendar-header">
-                            <button type="button" id="prev-month">‹</button>
-                            <div class="calendar-month" id="current-month"></div>
-                            <button type="button" id="next-month">›</button>
-                        </div>
-                        <div class="calendar-grid" id="calendar-grid"></div>
-                    </div>
-
-                    <div id="time-slots-container" style="display: none;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #8B0000;">
-                            Choisissez votre horaire :
-                        </label>
-                        <div class="time-slots" id="time-slots"></div>
-                    </div>
-
-                    <div id="reservation-summary" class="reservation-summary" style="display: none;">
-                        <h4>Récapitulatif de votre réservation</h4>
-                        <p><strong>Date :</strong> <span id="summary-date"></span></p>
-                        <p><strong>Heure :</strong> <span id="summary-time"></span></p>
-                    </div>
-
                     <div class="form-group">
                         <label for="nom">Nom complet</label>
                         <input type="text" id="nom" name="nom" required>
@@ -1056,7 +933,7 @@
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
-                <a href="/cdn-cgi/l/email-protection#71121e1f051012053113180205031e05161e04031c101f155f1703"><span class="__cf_email__" data-cfemail="86e5e9e8f2e7e5f2c6e4eff5f2f4e9f2e1e9f3f4ebe7e8e2a8e0f4">[email&#160;protected]</span></a>
+                <a href="mailto:contact@bistrotgourmand.fr">contact@bistrotgourmand.fr</a>
             </div>
         </div>
         <p>&copy; 2025 Le Bistrot Gourmand. Tous droits réservés.</p>
@@ -1069,189 +946,26 @@
     </a>
 
     <script>
-        // Fonction globale pour le menu hamburger
-        function toggleMobileMenu() {
-            var mobileMenu = document.getElementById('mobile-menu');
-            var navLinks = document.getElementById('nav-links');
-            
-            if (mobileMenu && navLinks) {
-                mobileMenu.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            }
-        }
-        
-        // Attendre que le DOM soit chargé pour le reste
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fermer le menu au clic sur un lien
-            var links = document.querySelectorAll('.nav-links a');
-            for (var i = 0; i < links.length; i++) {
-                links[i].addEventListener('click', function() {
-                    var mobileMenu = document.getElementById('mobile-menu');
-                    var navLinks = document.getElementById('nav-links');
-                    if (mobileMenu) mobileMenu.classList.remove('active');
-                    if (navLinks) navLinks.classList.remove('active');
-                });
-            }
-
-            // Smooth scroll
-            var anchors = document.querySelectorAll('a[href^="#"]');
-            for (var i = 0; i < anchors.length; i++) {
-                anchors[i].addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            }
-        });
-
-        // Système de calendrier
-        let currentDate = new Date();
-        let selectedDate = null;
-        let selectedTime = null;
-
-        const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
-                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-        const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-
-        // Créneaux horaires
-        const lunchSlots = ['12:00', '12:30', '13:00', '13:30', '14:00'];
-        const dinnerSlots = ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'];
-
-        // Simule des créneaux déjà réservés (pour la démo)
-        const bookedSlots = {
-            '2025-11-15': ['12:00', '20:00'],
-            '2025-11-16': ['19:00', '19:30'],
-            '2025-11-20': ['13:00', '21:00']
-        };
-
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            
-            document.getElementById('current-month').textContent = 
-                `${months[month]} ${year}`;
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            const grid = document.getElementById('calendar-grid');
-            grid.innerHTML = '';
-
-            // Jours de la semaine
-            days.forEach(day => {
-                const dayName = document.createElement('div');
-                dayName.className = 'calendar-day-name';
-                dayName.textContent = day;
-                grid.appendChild(dayName);
-            });
-
-            // Jours vides avant le 1er
-            for (let i = 0; i < firstDay; i++) {
-                const empty = document.createElement('div');
-                grid.appendChild(empty);
-            }
-
-            // Jours du mois
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                dayElement.textContent = day;
-
-                const date = new Date(year, month, day);
-                date.setHours(0, 0, 0, 0);
-
-                // Marquer les jours passés et dimanche/lundi (fermé)
-                if (date < today || date.getDay() === 0 || date.getDay() === 1) {
-                    dayElement.classList.add('past');
-                } else {
-                    dayElement.addEventListener('click', () => selectDate(date, dayElement));
+        // Smooth scroll pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-
-                grid.appendChild(dayElement);
-            }
-        }
-
-        function selectDate(date, element) {
-            selectedDate = date;
-            selectedTime = null;
-
-            document.querySelectorAll('.calendar-day').forEach(d => 
-                d.classList.remove('selected'));
-            element.classList.add('selected');
-
-            renderTimeSlots(date);
-        }
-
-        function renderTimeSlots(date) {
-            const container = document.getElementById('time-slots-container');
-            const slotsDiv = document.getElementById('time-slots');
-            slotsDiv.innerHTML = '';
-
-            const dateStr = date.toISOString().split('T')[0];
-            const booked = bookedSlots[dateStr] || [];
-
-            const allSlots = [...lunchSlots, ...dinnerSlots];
-
-            allSlots.forEach(time => {
-                const slot = document.createElement('div');
-                slot.className = 'time-slot';
-                slot.textContent = time;
-
-                if (booked.includes(time)) {
-                    slot.classList.add('unavailable');
-                } else {
-                    slot.addEventListener('click', () => selectTime(time, slot));
-                }
-
-                slotsDiv.appendChild(slot);
             });
-
-            container.style.display = 'block';
-            document.getElementById('reservation-summary').style.display = 'none';
-        }
-
-        function selectTime(time, element) {
-            selectedTime = time;
-
-            document.querySelectorAll('.time-slot').forEach(s => 
-                s.classList.remove('selected'));
-            element.classList.add('selected');
-
-            updateSummary();
-        }
-
-        function updateSummary() {
-            if (selectedDate && selectedTime) {
-                const summary = document.getElementById('reservation-summary');
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                
-                document.getElementById('summary-date').textContent = 
-                    selectedDate.toLocaleDateString('fr-FR', options);
-                document.getElementById('summary-time').textContent = selectedTime;
-                
-                summary.style.display = 'block';
-            }
-        }
-
-        document.getElementById('prev-month').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
         });
 
-        document.getElementById('next-month').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
+        // Gestion du formulaire de réservation
         document.getElementById('reservation-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            if
-    
+            alert('Merci pour votre réservation ! Nous vous contacterons sous 24h pour confirmer.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
